@@ -1,0 +1,33 @@
+LicenseRef-PH-Gov-Work
+Work of the Government of the Philippines — no copyright subsists
+
+This identifier is not a licence grant. It marks material in this
+repository that originates in an issuance of the Government of the
+Philippines, over which no party — including the maintainer of this
+repository — holds copyright.
+
+Intellectual Property Code of the Philippines (Republic Act No. 8293),
+Section 176.1:
+
+    No copyright shall subsist in any work of the Government of the
+    Philippines. However, prior approval of the government agency or
+    office wherein the work is created shall be necessary for
+    exploitation of such work for profit.
+
+Material carrying this identifier may therefore be used, copied and
+redistributed freely. Anyone intending to exploit it for profit should
+seek the prior approval of the issuing agency named in the file's
+SPDX-FileCopyrightText field, as Section 176.1 requires.
+
+Files carrying this identifier in this repository:
+
+    dost_strategic_plan_2023_2028.json
+        DOST Administrative Order No. 017, s. 2023 — DOST Strategic
+        Plan 2023-2028. Transcribed into JSON for use as the authority
+        for strategic alignment. The transcription introduces no claim
+        over the underlying issuance.
+
+The structural choices made in transcribing such material — key
+vocabulary, nesting, derived fields — are the maintainer's work and are
+released under CC0-1.0 together with the other interface files. The
+transcribed text itself is not the maintainer's to license.
