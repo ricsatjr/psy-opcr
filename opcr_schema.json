@@ -1,0 +1,395 @@
+{
+  "schema_version": "1.0",
+  "title": "PSHS-CARC OPCR — stable form definition",
+  "description": "Columns 1-5 of the OPCR: the DOST Strategic Plan Alignment, the PSHSS Program, and the Performance Indicators. These do not change between fiscal years, so they are fixed here rather than re-entered each cycle. A year's OPCR supplies only the per-year fields listed under 'per_year_fields', keyed by indicator id.",
+  "strategic_plan_reference": {
+    "issuance": "DOST Administrative Order No. 017, Series of 2023",
+    "plan_period": "2023-2028",
+    "note": "pillar, pillar_number, outcome, outcome_number, strategy and sub_strategy are DERIVED from strategy_number and sub_strategy_index. Do not edit them independently; the plan assigns each strategy to exactly one pillar and outcome. pillar_number is null for strategies 17-20, which belong to Cross-cutting Strategies — there is no DOST Pillar 5."
+  },
+  "form": {
+    "form_title": "OFFICE PERFORMANCE COMMITMENT AND REVIEW (OPCR)",
+    "agency_organizational_outcome": "Increased Competitiveness of Filipinos in Science and Engineering",
+    "rating_scale": {
+      "5": "Outstanding",
+      "4": "Very Satisfactory",
+      "3": "Satisfactory",
+      "2": "Unsatisfactory",
+      "1": "Poor"
+    },
+    "dimension_legend": {
+      "quantity": "Quantity",
+      "efficiency": "Efficiency",
+      "timeliness": "Timeliness",
+      "average": "Average"
+    },
+    "dimension_legend_note": "Printed on the form as '1 - Quantity 2 - Efficiency 3 - Timeliness 4 - Average'. CSC SPMS forms more commonly read 'Quality' for dimension 1; this form reads Quantity and that wording is authoritative here.",
+    "columns": [
+      {
+        "n": 1,
+        "key": "pillar_outcome",
+        "label": "Pillar / Outcome",
+        "group": "DOST Strategic Plan Alignment",
+        "source": "stable"
+      },
+      {
+        "n": 2,
+        "key": "strategy",
+        "label": "Strategy",
+        "group": "DOST Strategic Plan Alignment",
+        "source": "stable"
+      },
+      {
+        "n": 3,
+        "key": "sub_strategy",
+        "label": "Sub-strategy",
+        "group": "DOST Strategic Plan Alignment",
+        "source": "stable"
+      },
+      {
+        "n": 4,
+        "key": "pshss_program",
+        "label": "PSHSS Program",
+        "source": "stable"
+      },
+      {
+        "n": 5,
+        "key": "performance_indicators",
+        "label": "Performance Indicators",
+        "source": "stable"
+      },
+      {
+        "n": 6,
+        "key": "targets",
+        "label": "Targets",
+        "source": "per_year",
+        "phase": "commitment"
+      },
+      {
+        "n": 7,
+        "key": "allotted_budget",
+        "label": "Allotted Budget",
+        "source": "per_year",
+        "phase": "commitment"
+      },
+      {
+        "n": 8,
+        "key": "division_individual_accountable",
+        "label": "Division/Individual Accountable",
+        "source": "per_year",
+        "phase": "commitment"
+      },
+      {
+        "n": 9,
+        "key": "means_of_verification",
+        "label": "Means of Verification",
+        "source": "mov_schema",
+        "phase": "commitment",
+        "note": "Not printed on the FY2025 form; included here as a defined column."
+      },
+      {
+        "n": 10,
+        "key": "actual_accomplishment",
+        "label": "Actual Accomplishment",
+        "source": "per_year",
+        "phase": "evaluation"
+      },
+      {
+        "n": 11,
+        "key": "rating",
+        "label": "Rating",
+        "sub_headers": [
+          "Q1",
+          "E2",
+          "T3",
+          "A4"
+        ],
+        "source": "per_year",
+        "phase": "evaluation"
+      },
+      {
+        "n": 12,
+        "key": "remarks",
+        "label": "Remarks",
+        "source": "per_year",
+        "phase": "evaluation"
+      }
+    ],
+    "column_header_note": "The printed form wraps 'Division/Individual Accountable' and 'Actual Accomplishment' onto two lines with a rule between them; that rule is a layout artifact, not a sub-header split."
+  },
+  "indicator_fields": {
+    "id": "Program letter and sequence within the program, e.g. 'D.1'. The join key used by the MOV schema and by a year's data.",
+    "dimensions": "Which of quantity/efficiency/timeliness the indicator is measured on. A year's target, actual_accomplishment and rating must fill exactly these and leave the others null (Not Applicable).",
+    "measure_type": "Unit of the figures: percentage, count, rank, percentile.",
+    "comparator": "Direction of the target: at_least, within_top, exactly. Needed once ratings are computed from actual against target."
+  },
+  "per_year_fields": [
+    "target (per dimension, plus explanation and raw)",
+    "allotted_budget",
+    "division_individual_accountable",
+    "actual_accomplishment (per dimension, plus explanation and raw)",
+    "rating (quantity, efficiency, timeliness, average, basis)",
+    "remarks",
+    "commitment and sign-off signatories and dates",
+    "summary (per-program ratings, total, final average)"
+  ],
+  "programs": [
+    {
+      "code": "A",
+      "title": "STEM Secondary Education on Scholarship Basis Program",
+      "alignment_blocks": [
+        {
+          "block_id": "A-1",
+          "strategic_alignment": {
+            "strategy_number": 1,
+            "sub_strategy_index": 0,
+            "pillar": "DOST Pillar 1: Human Well-Being",
+            "pillar_number": 1,
+            "outcome": "Outcome 1: Human Well-Being Promoted",
+            "outcome_number": 1,
+            "strategy": "Achieve quality science education and enhance knowledge and socio-economic contribution of S&T talents",
+            "sub_strategy": "Raise the bar of Science, Technology, Engineering, and Mathematics (STEM) education"
+          },
+          "sub_strategy_full_text": "Raise the bar of Science, Technology, Engineering, and Mathematics (STEM) education",
+          "indicators": [
+            {
+              "id": "A.1",
+              "description": "Percentage of PSHS Graduates pursuing STEM courses",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "percentage",
+              "comparator": "at_least"
+            },
+            {
+              "id": "A.2",
+              "description": "Cohort Survival Rate: percentage of scholars to advance to the succeeding grade level until they complete the 6-year scholarship program",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "percentage",
+              "comparator": "at_least"
+            },
+            {
+              "id": "A.3",
+              "description": "No. of scholars supported",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "count",
+              "comparator": "at_least"
+            },
+            {
+              "id": "A.4",
+              "description": "Percentage of winnings/awards/recognition from the total number of PSHSS-approved STEM international competitions participated in by PSHS scholars",
+              "dimensions": [
+                "quantity",
+                "efficiency"
+              ],
+              "measure_type": "percentage",
+              "comparator": "at_least"
+            },
+            {
+              "id": "A.5",
+              "description": "Percentage of winnings/awards/recognitions in PSHSS-approved national competitions",
+              "dimensions": [
+                "quantity",
+                "efficiency"
+              ],
+              "measure_type": "percentage",
+              "comparator": "at_least"
+            },
+            {
+              "id": "A.6",
+              "description": "Percentile of randomly-selected PSHS students in Math in the US-based SAT",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "percentile",
+              "comparator": "at_least"
+            },
+            {
+              "id": "A.7",
+              "description": "Rank of the campuses based on the overall UPCAT scores",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "rank",
+              "comparator": "within_top"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "B",
+      "title": "STEM Promotion Program",
+      "alignment_blocks": [
+        {
+          "block_id": "B-1",
+          "strategic_alignment": {
+            "strategy_number": 17,
+            "sub_strategy_index": 1,
+            "pillar": "Cross-cutting Strategies",
+            "pillar_number": null,
+            "outcome": "Outcome 5: DOST System governance strengthened and harmonized",
+            "outcome_number": 5,
+            "strategy": "Institutionalize science communication",
+            "sub_strategy": "Build and strengthen capacities on Science Communication, S&T information generation, knowledge management, literacy, and promotion"
+          },
+          "sub_strategy_full_text": "Build and strengthen capacities on Science Communication, S&T information generation, knowledge management, literacy, and promotion",
+          "indicators": [
+            {
+              "id": "B.1",
+              "description": "Percentage of municipalities/cities with applicants to the NCE",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "percentage",
+              "comparator": "at_least"
+            },
+            {
+              "id": "B.2",
+              "description": "Number of municipality/city recipients of promotional activities",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "count",
+              "comparator": "at_least"
+            }
+          ]
+        },
+        {
+          "block_id": "B-2",
+          "strategic_alignment": {
+            "strategy_number": 1,
+            "sub_strategy_index": 1,
+            "pillar": "DOST Pillar 1: Human Well-Being",
+            "pillar_number": 1,
+            "outcome": "Outcome 1: Human Well-Being Promoted",
+            "outcome_number": 1,
+            "strategy": "Achieve quality science education and enhance knowledge and socio-economic contribution of S&T talents",
+            "sub_strategy": "Institutionalize FORWARD Framework"
+          },
+          "sub_strategy_full_text": "Institutionalize Future-proof education, Optimum human resource development, Re-engineering administrative processes, World-class outputs based on well-defined standards, Accessible intellectual property (IP) through appropriate use for public use and economic value, Recognizable brand of STEM education, and Deepening socio-emotional skills (FORWARD) Framework",
+          "indicators": [
+            {
+              "id": "B.3",
+              "description": "Percentage of freshmen who were able to get a GWA of 2.5 or better in the 2nd quarter of the schoolyear",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "percentage",
+              "comparator": "at_least"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "C",
+      "title": "General Administration and Support",
+      "alignment_blocks": [
+        {
+          "block_id": "C-1",
+          "strategic_alignment": {
+            "strategy_number": 19,
+            "sub_strategy_index": 1,
+            "pillar": "Cross-cutting Strategies",
+            "pillar_number": null,
+            "outcome": "Outcome 5: DOST System governance strengthened and harmonized",
+            "outcome_number": 5,
+            "strategy": "Roll-out S&T-enabled systems for seamless operations",
+            "sub_strategy": "Improve monitoring and evaluation mechanisms through evidence-based, participatory, and efficient planning and policy development processes"
+          },
+          "sub_strategy_full_text": "Improve monitoring and evaluation mechanisms through evidence-based, participatory, and efficient planning and policy development processes",
+          "indicators": [
+            {
+              "id": "C.1",
+              "description": "Budget Utilization Rate (BUR)",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "percentage",
+              "comparator": "at_least"
+            },
+            {
+              "id": "C.2",
+              "description": "No. of Campuses/Office compliant to ISO certification",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "count",
+              "comparator": "at_least"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "D",
+      "title": "Leadership Role in Secondary STEM Education",
+      "alignment_blocks": [
+        {
+          "block_id": "D-1",
+          "strategic_alignment": {
+            "strategy_number": 5,
+            "sub_strategy_index": 2,
+            "pillar": "DOST Pillar 2: Wealth Creation",
+            "pillar_number": 2,
+            "outcome": "Outcome 2: Wealth creation fostered",
+            "outcome_number": 2,
+            "strategy": "Advance research and development, and innovation",
+            "sub_strategy": "Encourage and assist researchers and scientists to develop S&T-based innovations through different interventions such as the provision of grants for research and other STI-related programs, projects, and activities"
+          },
+          "sub_strategy_full_text": "Encourage and assist researchers and scientists to develop S&T-based innovations through different interventions such as the provision of grants for research and other STI-related programs, projects, and activities",
+          "indicators": [
+            {
+              "id": "D.1",
+              "description": "No. of academic activities (research, training, curriculum development, etc.) conducted",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "count",
+              "comparator": "at_least"
+            },
+            {
+              "id": "D.2",
+              "description": "No. of beneficiaries of outreach/extension activities (external)",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "count",
+              "comparator": "at_least"
+            }
+          ]
+        },
+        {
+          "block_id": "D-2",
+          "strategic_alignment": {
+            "strategy_number": 18,
+            "sub_strategy_index": 1,
+            "pillar": "Cross-cutting Strategies",
+            "pillar_number": null,
+            "outcome": "Outcome 5: DOST System governance strengthened and harmonized",
+            "outcome_number": 5,
+            "strategy": "Build robust institutional capacity",
+            "sub_strategy": "Pursue appropriate mechanisms to achieve an adequate number of competent S&T human resources"
+          },
+          "sub_strategy_full_text": "Pursue appropriate mechanisms to achieve an adequate number of competent S&T human resources",
+          "indicators": [
+            {
+              "id": "D.3",
+              "description": "No. of administrative activities (training, audit, planning etc.) conducted",
+              "dimensions": [
+                "quantity"
+              ],
+              "measure_type": "count",
+              "comparator": "at_least"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

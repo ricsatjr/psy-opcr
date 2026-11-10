@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.0",
+  "title": "PSHS-CARC OPCR — means of verification",
+  "description": "Means of verification keyed by indicator code. MOVs are defined at planning phase against the indicator, not against a particular year's accomplishment, so this file is stable across fiscal years. Entry fields: title, document_type, description, prepared_by, coverage.",
+  "document_types": [
+    "report",
+    "summary_table",
+    "nominal_roll",
+    "certificate",
+    "financial_statement",
+    "activity_report_form",
+    "activity_proposal_form",
+    "ranking_result",
+    "test_result",
+    "other"
+  ],
+  "placeholders": [
+    "A.4",
+    "A.5"
+  ],
+  "placeholder_note": "These indicators had no MOV filed in the FY2025 bundle. The entries below are proposed definitions of what would make them verifiable, not records of documents submitted. Confirm against how the results are actually compiled before committing them to a future OPCR.",
+  "means_of_verification": {
+    "A.1": [
+      {
+        "title": "Percentage of PSHS Graduates Pursuing STEM Course",
+        "document_type": "summary_table",
+        "description": "Counts of alumni enrolled in STEM courses, non-STEM courses and gap year against the batch total, with the resulting percentage. Reconciles to the form: 73 STEM of 79 = 92.41%, with 2 non-STEM and 4 gap year matching the Remarks cell.",
+        "prepared_by": "SST/SSD Chief",
+        "coverage": "graduating batch of the rating year"
+      },
+      {
+        "title": "Course and University Enrolled by Batch",
+        "document_type": "nominal_roll",
+        "description": "Per-graduate list of course, STEM classification and school enrolled in; the backing detail for the percentage above.",
+        "prepared_by": "SSD",
+        "coverage": "graduating batch of the rating year"
+      }
+    ],
+    "A.2": [
+      {
+        "title": "Cohort Survival Rate",
+        "document_type": "summary_table",
+        "description": "Number graduated against the original cohort, with an itemised list of terminated or withdrawn scholars and the reason for each (voluntary withdrawal, failing grade, migration). Reconciles to the form's 79/90 = 87.78%; the form's Remarks regroup the reasons into withdrawal and performance.",
+        "prepared_by": "SSD",
+        "coverage": "graduating batch of the rating year"
+      }
+    ],
+    "A.3": [
+      {
+        "title": "Number of Scholars Supported",
+        "document_type": "summary_table",
+        "description": "Headcount of scholars broken down by grade level, sex, scholarship category and region of origin, with a grand total.",
+        "prepared_by": "SSD",
+        "coverage": "school year within the rating year"
+      }
+    ],
+    "A.4": [
+      {
+        "title": "List of PSHSS-Approved International STEM Competitions Joined, with Winnings and Recognitions",
+        "document_type": "summary_table",
+        "description": "PLACEHOLDER - no such document was filed in the FY2025 bundle; this states what the indicator needs in order to be verifiable. Should itemise each PSHSS-approved international competition participated in, the scholars or teams fielded, and the winnings, awards or recognitions obtained, so that both dimensions are computable from one source: quantity as competitions yielding a winning over total joined, efficiency as the narrower recognition count over the same total. The FY2025 Remarks imply this structure, citing Q: 10/11 and E: 5/11 over a common denominator of 11 competitions.",
+        "prepared_by": "SSD",
+        "coverage": "competitions joined within the rating year"
+      }
+    ],
+    "A.5": [
+      {
+        "title": "List of PSHSS-Approved National STEM Competitions Joined, with Winnings and Recognitions",
+        "document_type": "summary_table",
+        "description": "PLACEHOLDER - no such document was filed in the FY2025 bundle. Same structure as the international list for A.4, covering PSHSS-approved national competitions. The FY2025 Remarks cite Q: 16/23 and E: 9/23 over a common denominator of 23 competitions.",
+        "prepared_by": "SSD",
+        "coverage": "competitions joined within the rating year"
+      }
+    ],
+    "A.6": [
+      {
+        "title": "Scholastic Assessment Test - SAT Percentile",
+        "document_type": "test_result",
+        "description": "Per-student Math score and Math percentile rank for the randomly-selected takers, with the date range of the exam window.",
+        "prepared_by": "SSD",
+        "coverage": "exam window falling within the rating year; takers are the batch graduating the following year"
+      }
+    ],
+    "A.7": [
+      {
+        "title": "Rank of PSHS campuses based on the overall UPCAT scores of the PSHS student-takers",
+        "document_type": "ranking_result",
+        "description": "Campus rank and ranking category from the UPCAT results. Category B covers high schools with fewer than 100 applicants, ranked by UPCAT mean t-score; this category is the basis of the form's 'Category B' remark.",
+        "prepared_by": "SST/SSD Chief",
+        "coverage": "UPCAT of the rating year"
+      }
+    ],
+    "B.1": [
+      {
+        "title": "Percentage of municipalities with applicants to the National Competitive Examinations (NCE)",
+        "document_type": "summary_table",
+        "description": "Municipalities in the region with and without NCE applicants against the regional total, with the resulting percentage. Reconciles to 67 of 77 = 87.01%.",
+        "prepared_by": "SST/SSD Chief",
+        "coverage": "NCE cycle of the rating year"
+      },
+      {
+        "title": "Municipalities with applicants to the National Competitive Examinations (NCE)",
+        "document_type": "nominal_roll",
+        "description": "Applicant counts per province and municipality, with provincial subtotals; the backing detail for the percentage above.",
+        "prepared_by": "SSD",
+        "coverage": "NCE cycle of the rating year"
+      }
+    ],
+    "B.2": [
+      {
+        "title": "Number of Municipality Recipients of Promotional Activities",
+        "document_type": "summary_table",
+        "description": "Count of municipalities reached per quarter with the municipalities named, and a total for the year.",
+        "prepared_by": "SSD",
+        "coverage": "rating year, by quarter"
+      }
+    ],
+    "B.3": [
+      {
+        "title": "Percentage of Freshmen Who Achieved a GWA of 2.50 or Higher in the 2nd Quarter",
+        "document_type": "summary_table",
+        "description": "Total freshmen against those with GWA of 2.50 or higher, with the resulting percentage, followed by a per-student nominal roll of 2nd-quarter averages by section. The school year covered necessarily begins in the calendar year before the rating year: the current school year's 2nd quarter has not concluded by the time the OPCR is evaluated, so the most recent completed 2nd quarter is the one that can be reported. The FY2025 submission therefore covers SY 2024-2025, which is correct rather than a mismatch.",
+        "prepared_by": "OCD",
+        "coverage": "2nd quarter of the school year that began in the previous calendar year"
+      }
+    ],
+    "C.1": [
+      {
+        "title": "Statement of Allotment, Obligations and Balances",
+        "document_type": "financial_statement",
+        "description": "Allotment, obligations incurred, balances and percentage utilisation per object of expenditure across all programs, with totals.",
+        "prepared_by": "Finance/Budget Unit",
+        "coverage": "for the month ending December 31 of the rating year"
+      }
+    ],
+    "C.2": [
+      {
+        "title": "ISO 9001:2015 Certificate",
+        "document_type": "certificate",
+        "description": "Certificate from the certification body confirming the campus quality management system conforms to ISO 9001:2015. The primary evidence of compliance.",
+        "coverage": "validity period covering the rating year"
+      },
+      {
+        "title": "Activity Report Form - Recertification Audit",
+        "document_type": "activity_report_form",
+        "description": "Report on the conduct of the recertification audit, recording the audit date, the auditing body and the comments and recommendations raised.",
+        "prepared_by": "Quality Management/ISO",
+        "coverage": "audit conducted within the rating year"
+      },
+      {
+        "title": "Activity Proposal Form - Surveillance Audit",
+        "document_type": "activity_proposal_form",
+        "description": "Proposal for the surveillance audit stating its rationale and objectives, with the line-item budget.",
+        "prepared_by": "Quality Management/ISO",
+        "coverage": "audit scheduled within the rating year"
+      }
+    ],
+    "D.1": [
+      {
+        "title": "Academic Activities Conducted",
+        "document_type": "report",
+        "description": "Itemised list of academic activities with date, beneficiaries by sex, total beneficiaries, actual cost, participants and remarks. Carries a header block restating the performance indicator with its target and accomplishment, so the match to the indicator is explicit rather than inferred. The FY2025 copy labels this header 'D.2'; the correct code is D.1, academic activities being the first indicator under Program D.",
+        "prepared_by": "CID",
+        "coverage": "as of December 31 of the rating year"
+      }
+    ],
+    "D.2": [
+      {
+        "title": "Outreach Activities Conducted",
+        "document_type": "report",
+        "description": "Itemised list of outreach and extension activities with date, beneficiaries by sex, total beneficiaries, actual cost and participant groups. The beneficiary totals are what roll up to the reported accomplishment.",
+        "prepared_by": "CID",
+        "coverage": "as of December 31 of the rating year"
+      }
+    ],
+    "D.3": [
+      {
+        "title": "Administrative Activities Conducted",
+        "document_type": "report",
+        "description": "Itemised list of administrative activities with date, beneficiaries by sex, actual cost, participants and a remarks column classifying each activity. Carries a header block restating the performance indicator with its target and accomplishment. The FY2025 copy labels this header 'D.2', duplicating the academic-activities document; the correct code is D.3, administrative activities being the third indicator under Program D.",
+        "prepared_by": "Administrative Division",
+        "coverage": "as of December 31 of the rating year"
+      }
+    ]
+  }
+}

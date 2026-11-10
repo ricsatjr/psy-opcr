@@ -1,0 +1,283 @@
+{
+  "source": {
+    "issuance": "DOST Administrative Order No. 017, Series of 2023",
+    "subject": "Adoption of the DOST Strategic Plan 2023-2028: Science, Technology and Innovation for Human Well-Being, Wealth Creation and Protection, and Sustainability for All",
+    "date_signed": "2023-12-29",
+    "signatory": "Renato U. Solidum, Jr., Secretary",
+    "agency": "Department of Science and Technology (DOST), Republic of the Philippines",
+    "plan_period": "2023-2028"
+  },
+  "mission": "To direct, lead, and coordinate the country's scientific, technological, and innovative efforts geared towards maximum economic and social benefits for the people.",
+  "vision": "DOST as the leading enabler and provider of science, technology, and innovation (STI) explicit solutions towards national development.",
+  "core_values": {
+    "acronym": "SCIENCE",
+    "values": [
+      "Service",
+      "Commitment",
+      "Innovation",
+      "Ethics",
+      "Nurturance",
+      "Collaboration",
+      "Excellence"
+    ]
+  },
+  "pillars": [
+    {
+      "pillar_number": 1,
+      "pillar": "Human Well-Being",
+      "description": "The DOST will accelerate the generation of knowledge, technology, and innovations to ensure health and nutrition, food safety and security, access to clean water, clothing, shelter, and to provide solutions for efficient transport systems. It will build a strong cadre of human resources, physical infrastructure, and programs that will steer STI development in the country for improved quality of life for every Filipino.",
+      "outcome": {
+        "outcome_number": 1,
+        "outcome": "Human Well-Being Promoted"
+      },
+      "strategies": [
+        {
+          "strategy_number": 1,
+          "strategy_code": "S1",
+          "strategy": "Achieve quality science education and enhance knowledge and socio-economic contribution of S&T talents",
+          "sub_strategies": [
+            "Raise the bar of Science, Technology, Engineering, and Mathematics (STEM) education",
+            "Institutionalize Future-proof education, Optimum human resource development, Re-engineering administrative processes, World-class outputs based on well-defined standards, Accessible intellectual property (IP) through appropriate use for public use and economic value, Recognizable brand of STEM education, and Deepening socio-emotional skills (FORWARD) Framework",
+            "Strengthen the undergraduate, graduate, and postgraduate scholarship programs",
+            "Cultivate Science culture",
+            "Enhance S&T-related skills"
+          ]
+        },
+        {
+          "strategy_number": 2,
+          "strategy_code": "S2",
+          "strategy": "Ensure food security",
+          "sub_strategies": [
+            "Boost food security through S&T-based food systems innovations",
+            "Develop technologies that foster sustainable production and consumption in agriculture and aquatic and natural resources (AANR) sector",
+            "Address critical and emerging agricultural issues and challenges",
+            "Develop and promote viable food system policy and governance"
+          ]
+        },
+        {
+          "strategy_number": 3,
+          "strategy_code": "S3",
+          "strategy": "Improve health and nutrition",
+          "sub_strategies": [
+            "Pursue programs on health and nutrition that are aligned with the Harmonized National R&D Agenda (HNRDA) and the National Unified Health Research Agenda (NUHRA)",
+            "Prioritize research on functional foods, nutrition, nutrigenomics, food safety, drug discovery and development, emerging and re-emerging infectious diseases, digital and frontier technologies for health, among others"
+          ]
+        },
+        {
+          "strategy_number": 4,
+          "strategy_code": "S4",
+          "strategy": "Improve access to clean water, clothing, shelter, and efficient transport systems",
+          "sub_strategies": [
+            "Invest in programs that respond to the Filipino's basic needs like clean water, clothing, and shelter",
+            "Increase access to clean water, maintain water quality and control pollution",
+            "Promote mechanisms for holistic planning and management of sanitation of sewerage systems",
+            "Enhance the usage of locally produced textile materials into sustainable and commercially available garments",
+            "Utilize local materials to provide safe, sustainable, and resilient shelters",
+            "Develop solutions for efficient and responsive transport systems"
+          ]
+        }
+      ]
+    },
+    {
+      "pillar_number": 2,
+      "pillar": "Wealth Creation",
+      "description": "The DOST will promote the use of science, technology and innovation to create value-added products, services, and other solutions towards national and regional development which in the process drives up high-value jobs, workforce creativity and productivity, continuous product improvement, and increased market value of innovations.",
+      "outcome": {
+        "outcome_number": 2,
+        "outcome": "Wealth creation fostered"
+      },
+      "strategies": [
+        {
+          "strategy_number": 5,
+          "strategy_code": "S5",
+          "strategy": "Advance research and development, and innovation",
+          "sub_strategies": [
+            "Advance and promote globally competitive R&D and innovations that create value-added products, services, and other solutions aligned with the Harmonized National R&D Agenda (HNRDA)",
+            "Create S&T-based jobs",
+            "Encourage and assist researchers and scientists to develop S&T-based innovations through different interventions such as the provision of grants for research and other STI-related programs, projects, and activities"
+          ]
+        },
+        {
+          "strategy_number": 6,
+          "strategy_code": "S6",
+          "strategy": "Scale-up technology adoption, utilization and commercialization",
+          "sub_strategies": [
+            "Scale-up technology adoption, utilization, and commercialization",
+            "Engage with the public and private sectors in adopting emerging technologies to improve productivity through the help of venture financing and innovation technology lending programs",
+            "Strengthen competitiveness of industries to keep up with the rapidly changing world markets"
+          ]
+        },
+        {
+          "strategy_number": 7,
+          "strategy_code": "S7",
+          "strategy": "Strengthen provision of STI support services for the production and manufacturing sectors",
+          "sub_strategies": [
+            "Establish and/or upgrade STI infrastructures such as laboratories, testing facilities, and R&D centers",
+            "Enable HEIs to pursue higher-level R&D activities that address the needs of industries",
+            "Encourage HEIs to establish Knowledge, Innovation, Science, and Technology (KIST) Parks",
+            "Provide support for innovation hubs, technology business incubators, and start-ups",
+            "Strengthen the local industries as they participate in global production networks by ensuring compliance with international standards and processes"
+          ]
+        },
+        {
+          "strategy_number": 8,
+          "strategy_code": "S8",
+          "strategy": "Boost intellectual property protection and management for locally developed technologies",
+          "sub_strategies": [
+            "Offer a holistic package of assistance for patent, utility model, industrial design, copyright, and trademark applications for researchers, innovators, and inventors",
+            "Encourage and provide assistance in IP profiling and rights protection, including the packages of IP management for wealth generation"
+          ]
+        }
+      ]
+    },
+    {
+      "pillar_number": 3,
+      "pillar": "Wealth Protection",
+      "description": "In response to crises brought about by natural and human-induced hazards, the DOST will be at the forefront of protecting and mitigating the impact of these phenomena on families, communities, MSMEs, and big enterprises. It shall spearhead the development and transfer of climate and disaster-resilient technologies and innovations, and the provision of accessible science-based information and services for disaster risk reduction and climate change adaptation.",
+      "outcome": {
+        "outcome_number": 3,
+        "outcome": "Wealth protection reinforced"
+      },
+      "strategies": [
+        {
+          "strategy_number": 9,
+          "strategy_code": "S9",
+          "strategy": "Advance disaster risk reduction management and processes",
+          "sub_strategies": [
+            "Mainstream disaster risk prevention and mitigation mechanisms in development processes such as policy formulation and socio-economic development planning",
+            "Strengthen the development and provision of STI-based disaster risk reduction and mitigation strategies"
+          ]
+        },
+        {
+          "strategy_number": 10,
+          "strategy_code": "S10",
+          "strategy": "Improve monitoring and warning systems for risk reduction",
+          "sub_strategies": [
+            "Improve monitoring and warning systems and infrastructure",
+            "Intensify disaster risk reduction and mitigation (DRRM) information, education, and communication efforts"
+          ]
+        },
+        {
+          "strategy_number": 11,
+          "strategy_code": "S11",
+          "strategy": "Strengthen capacities for local disaster risk reduction and management (DRRM)",
+          "sub_strategies": [
+            "Build the capacities of LGUs and communities in preparing for, responding to, mitigating, and recovering from the impact of disasters",
+            "Strengthen and institutionalize arrangements and measures for reducing disaster risks, including projected climate risks, and enhancing disaster preparedness and response capabilities at all levels"
+          ]
+        },
+        {
+          "strategy_number": 12,
+          "strategy_code": "S12",
+          "strategy": "Enhance climate and disaster risk resilience",
+          "sub_strategies": [
+            "Build the adaptive capacities of communities",
+            "Increase the resilience of different sectors",
+            "Optimize disaster mitigation opportunities with the end in view of promoting people's welfare and security towards inclusive, gender-responsive, and rights-based sustainable development"
+          ]
+        }
+      ]
+    },
+    {
+      "pillar_number": 4,
+      "pillar": "Sustainability",
+      "description": "The DOST will strengthen R&D for the preservation and conservation of the environment and natural resources to meet the pressing demands of the present and the anticipated needs of future generations. It will build on the gains of the country's science, technology, and innovation investments and ensure sustainability of its programs and initiatives.",
+      "outcome": {
+        "outcome_number": 4,
+        "outcome": "Sustainability institutionalized"
+      },
+      "strategies": [
+        {
+          "strategy_number": 13,
+          "strategy_code": "S13",
+          "strategy": "Intensify environmental sustainability",
+          "sub_strategies": [
+            "Consider the needs and demands of future generations to identify science-based interventions for the environment",
+            "Integrate environmental protection in planning and policymaking for the expansion and inclusion of sustainability concerns",
+            "Create a holistic government approach, including private-public actions aligned with sustainable consumption and production practices"
+          ]
+        },
+        {
+          "strategy_number": 14,
+          "strategy_code": "S14",
+          "strategy": "Enhance ecosystem resilience",
+          "sub_strategies": [
+            "Support the rehabilitation of degraded ecosystems to boost ecosystem resilience",
+            "Enjoin stakeholders to adopt sustainable strategies and practices and harness natural assets to stimulate demand for green goods, services, and technologies"
+          ]
+        },
+        {
+          "strategy_number": 15,
+          "strategy_code": "S15",
+          "strategy": "Establish smart and sustainable communities",
+          "sub_strategies": [
+            "Support inclusive and sustainable development interventions that consider the implications of rapid growth of population and settlement",
+            "Maximize the use of science, technology and innovation combined with indigenous knowledge and local talents",
+            "Build data infrastructure that will provide a basis for management decisions at the local government units",
+            "Identify opportunities for citizens to pursue prosperity and fulfillment across all regions of the country"
+          ]
+        },
+        {
+          "strategy_number": 16,
+          "strategy_code": "S16",
+          "strategy": "Improve access to clean and green energy",
+          "sub_strategies": [
+            "Advocate for alternative energy sources and push for a transition to clean and green energy resources",
+            "Develop and deploy alternative energy-related technologies through localization, standards development, and innovations, particularly in unserved communities"
+          ]
+        }
+      ]
+    },
+    {
+      "pillar_number": null,
+      "pillar": "Cross-cutting Strategies",
+      "description": "The Cross-Cutting Strategies serve as the DOST's foundation for efficient and effective administration and governance of the STI initiatives, systems, and processes. The following strategies intended to strengthen internal DOST operations and support the achievement of the above outcomes, shall capitalize on science communication, institutional capacities, seamless operations, and linkages and partnerships for STI cooperation. It shall aggressively pursue digital transformation and data-driven, transparent, and citizen-centric governance systems.",
+      "outcome": {
+        "outcome_number": 5,
+        "outcome": "DOST System governance strengthened and harmonized"
+      },
+      "strategies": [
+        {
+          "strategy_number": 17,
+          "strategy_code": "S17",
+          "strategy": "Institutionalize science communication",
+          "sub_strategies": [
+            "Establish the DOST Science Communication Agenda, Science Communication Framework, and the Science Communication Roadmap",
+            "Build and strengthen capacities on Science Communication, S&T information generation, knowledge management, literacy, and promotion",
+            "Expand the reach of S&T information beyond physical boundaries by maximizing the utilization of emergent information systems, media, and communication platforms",
+            "Encourage and generate public discourse and engagement on science, technology, and innovation information to raise public awareness and appreciation of science communication"
+          ]
+        },
+        {
+          "strategy_number": 18,
+          "strategy_code": "S18",
+          "strategy": "Build robust institutional capacity",
+          "sub_strategies": [
+            "Strengthen DOST's internal capacities in responding to the stakeholders' needs by investing in Human Resource Development and Management interventions and in state-of-the-art applications, facilities, and equipment",
+            "Pursue appropriate mechanisms to achieve an adequate number of competent S&T human resources",
+            "Advance gender and development mainstreaming efforts"
+          ]
+        },
+        {
+          "strategy_number": 19,
+          "strategy_code": "S19",
+          "strategy": "Roll-out S&T-enabled systems for seamless operations",
+          "sub_strategies": [
+            "Adopt digital transformation and other change management strategies that will provide quality services, efficient processes, and timely, data-driven responses",
+            "Improve monitoring and evaluation mechanisms through evidence-based, participatory, and efficient planning and policy development processes"
+          ]
+        },
+        {
+          "strategy_number": 20,
+          "strategy_code": "S20",
+          "strategy": "Enhance linkages for science, technology, innovation, and entrepreneurial cooperation",
+          "sub_strategies": [
+            "Establish and maintain local and international linkages for STI, including entrepreneurial cooperation and partnerships",
+            "Maximize platforms for science diplomacy that contribute to the creation and exchange of scientific knowledge",
+            "Systematically and strategically mobilize international and industry resources to develop more impactful STI programs and projects"
+          ]
+        }
+      ]
+    }
+  ]
+}
