@@ -1,0 +1,781 @@
+/* ==========================================================================
+   PSHS-CARC OPCR — print stylesheet
+   Companion to opcr_schema.json (structure) and opcr_layout.json (geometry).
+
+   DIVISION OF LABOUR
+     opcr_schema.json  column keys, labels, header grouping, phase, nesting
+     opcr_layout.json  page size, per-variant column subset + order,
+                       column width percentages, furniture strings
+     opcr_print.css    everything else: type, rules, alignment, wrapping,
+                       newline rendering, page breaks
+
+   The one overlap is column width. Widths are percentages that live in the
+   layout JSON and are applied as an inline style on the <col> elements,
+   because they are data the application reasons about. This stylesheet sets
+   no column widths at all — it keys alignment and wrapping to the same
+   column keys so the two files stay in step.
+
+   CLASS CONTRACT
+     Column class  = "opcr-col--" + schema column key, with "." -> "-"
+                     pillar_outcome          -> .opcr-col--pillar_outcome
+                     rating.quantity         -> .opcr-col--rating-quantity
+                     The class goes on the <col>, the <th> and every <td>.
+     Variant class = "opcr-doc--" + variant name from opcr_layout.json
+                     print_commitment        -> .opcr-doc--print_commitment
+     Sections      = "opcr-" + document_sections_catalogue identifier
+                     commitment_block        -> .opcr-commitment_block
+                     indicator_table         -> .opcr-indicator_table
+     Utilities     = "opcr-" + a name that is not a section identifier.
+                     There is one: .opcr-scroll-wrap, the screen-only
+                     overflow container around the indicator table.
+     Elements      = block class + "__" + part
+                     .opcr-signatory__name, .opcr-summary__rating
+
+   REQUIRED MARKUP SHAPE
+     One <tbody> per PROGRAM — not per alignment block. This is not
+     cosmetic and the distinction is not arbitrary: a rowspan may not cross
+     a tbody boundary, and the PSHSS Program cell spans every indicator in
+     its program, which for B and D means spanning two alignment blocks. A
+     tbody per block silently clamps that cell to the first block and
+     shifts every later row one column to the left. Verified against a
+     render. See §10.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. TUNABLES
+   Collected so type and rule weight can be adjusted in one place rather
+   than hunted through the file.
+   ========================================================================== */
+
+:root {
+  /* Typeface. UNVERIFIED: the source scan was not available to this file,
+     so the form's actual face is unknown. Arial is the usual choice for
+     DOST/CSC forms and the stack degrades sanely. Replace the first entry
+     once the PDF is in hand. */
+  --opcr-font-body: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
+  --opcr-font-furniture: var(--opcr-font-body);
+
+  /* Sizes. A 15-leaf table across ~770pt of printable width averages ~51pt
+     a column; 7pt body is about the largest that keeps the prose columns
+     to a readable line count. */
+  --opcr-size-body: 7pt;
+  --opcr-size-header: 6.75pt;
+  --opcr-size-furniture: 9pt;
+  --opcr-size-commitment: 9pt;
+  --opcr-size-footer: 7.5pt;
+  --opcr-size-legend: 8pt;
+
+  --opcr-line-height: 1.18;
+  --opcr-line-height-furniture: 1.35;
+
+  /* Rules. Single weight throughout: the form is ruled uniformly, with no
+     heavier outer frame. */
+  --opcr-rule-width: 0.5pt;
+  --opcr-rule-color: #000;
+  --opcr-rule: var(--opcr-rule-width) solid var(--opcr-rule-color);
+
+  --opcr-cell-pad-v: 1.5pt;
+  --opcr-cell-pad-h: 2.5pt;
+
+  /* In table layout, `height` on a row or cell behaves as a minimum, not a
+     fixed value — the row still grows to fit its tallest cell. That is the
+     property to use here; `min-height` on a table-cell is undefined in the
+     spec and inconsistently honoured. */
+  --opcr-row-min-height: 14pt;
+
+  --opcr-ink: #000;
+}
+
+
+/* ==========================================================================
+   2. PAGE BOX
+   Geometry mirrors opcr_layout.json -> page. Kept here as well because
+   @page cannot read JSON; if the two ever disagree, the JSON is canonical.
+   ========================================================================== */
+
+@page {
+  size: A4 landscape;
+  margin: 36pt;
+}
+
+html {
+  /* No global scale factor. The scan is ~0.7-1.1% under A4 because of the
+     scanner, not because the form is a different size. Scaling to match the
+     scan would bake a defect into every printed copy. */
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--opcr-ink);
+  font-family: var(--opcr-font-body);
+  font-size: var(--opcr-size-body);
+  line-height: var(--opcr-line-height);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+
+/* ==========================================================================
+   3. PAGE FURNITURE
+   Blocks outside the table. Strings come from opcr_layout.json -> furniture.
+   ========================================================================== */
+
+.opcr-commitment_block {
+  font-size: var(--opcr-size-commitment);
+  line-height: var(--opcr-line-height-furniture);
+  text-align: justify;
+  margin: 0 0 8pt;
+  max-width: 62%;            /* leaves the upper right clear for §3.1 */
+}
+
+/* 3.1 Signature blocks ---------------------------------------------------- */
+
+.opcr-signatory_campus_director,
+.opcr-signatory_executive_director {
+  font-size: var(--opcr-size-furniture);
+  line-height: var(--opcr-line-height-furniture);
+  text-align: center;
+  break-inside: avoid;
+}
+
+.opcr-signatory_campus_director {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+}
+
+.opcr-signatory_executive_director {
+  width: 34%;
+  margin: 4pt 0 8pt;
+}
+
+/* The signature line itself. An actual signature is an image, not type —
+   this rules the space it is written or pasted into. */
+.opcr-signatory__name {
+  border-bottom: var(--opcr-rule);
+  display: block;
+  min-height: 22pt;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.opcr-signatory__role {
+  display: block;
+  font-style: italic;
+}
+
+/* 3.2 Rating scale box ---------------------------------------------------- */
+
+.opcr-rating_scale_box {
+  position: absolute;
+  right: 0;
+  border: var(--opcr-rule);
+  padding: 3pt 5pt;
+  font-size: var(--opcr-size-furniture);
+  line-height: var(--opcr-line-height-furniture);
+  break-inside: avoid;
+}
+
+.opcr-rating_scale_box ol,
+.opcr-rating_scale_box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 3.3 Agency Organizational Outcome banner -------------------------------- */
+
+.opcr-aoo_banner {
+  font-size: var(--opcr-size-furniture);
+  font-weight: 700;
+  margin: 6pt 0 3pt;
+  break-after: avoid;        /* never orphan the banner from its table */
+}
+
+/* 3.4 Legend -------------------------------------------------------------- */
+
+.opcr-legend_line {
+  font-size: var(--opcr-size-legend);
+  margin: 6pt 0 0;
+  break-before: avoid;
+}
+
+/* 3.5 Footer -------------------------------------------------------------- */
+
+/* "Page {page} of {pages}", from opcr_layout.json -> furniture.
+   footer_pattern. The margin box below needs no JavaScript and no help
+   from the generator: Chrome and Edge support it from 131, Safari from
+   18.2, and WeasyPrint and Prince have for far longer. Firefox is the lone
+   holdout and prints its own unstyleable footer instead. §14(h) has the
+   options if Firefox has to be supported. */
+@page {
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: var(--opcr-font-body);
+    font-size: var(--opcr-size-footer);
+    vertical-align: top;
+  }
+}
+
+/* Fallback path, unused unless Firefox support is required: a footer the
+   generator stamps once per sheet. */
+.opcr-footer {
+  font-size: var(--opcr-size-footer);
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   4. TABLE FRAME
+   ========================================================================== */
+
+.opcr-indicator_table {
+  /* fixed is required: it is what makes the <col> percentages authoritative
+     instead of letting content renegotiate them. */
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: var(--opcr-size-body);
+}
+
+.opcr-indicator_table th,
+.opcr-indicator_table td {
+  border: var(--opcr-rule);
+  padding: var(--opcr-cell-pad-v) var(--opcr-cell-pad-h);
+  vertical-align: top;
+  text-align: left;
+  /* break-word on DATA cells only — §5 overrides it for headers. Data is
+     unbounded and a future year may hold a token no column can fit, so a
+     visible mid-word break is preferred to text spilling across a rule.
+     Treat one as a signal rather than a result: a break inside a word in a
+     data cell means that column is narrower than its content needs, and
+     the fix is the width, not this property. */
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;              /* government form: no hyphenation */
+  orphans: 2;
+  widows: 2;
+}
+
+.opcr-indicator_table tbody tr {
+  height: var(--opcr-row-min-height);
+}
+
+
+/* ==========================================================================
+   5. HEADER ROWS
+   Two rows. Group row: "DOST Strategic Plan Alignment" over columns 1-3,
+   "Rating" over the four rating leaves. Second row: Pillar/Outcome,
+   Strategy, Sub-strategy, Q1, E2, T3, A4. Every other header spans both
+   rows via rowspan="2" in the markup.
+   ========================================================================== */
+
+.opcr-indicator_table thead th {
+  font-size: var(--opcr-size-header);
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.12;
+
+  /* Headers do not break mid-word, deliberately overriding §4. The widest
+     unbreakable header token is "Division/Individual" (19 characters, no
+     space): a slash offers no break opportunity. Left to break-word it
+     renders as "Division/Indiv | idual", which looks like a typo rather
+     than a too-narrow column. With `normal` the text overflows the cell
+     instead — visible, attributable, and fixed by widening the column.
+     See §14(i) for the minimum width this imposes. */
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Repeat the header on every sheet. Honours
+   opcr_layout.json -> variants[].repeat_table_header. */
+.opcr-indicator_table thead {
+  display: table-header-group;
+  break-inside: avoid;
+  break-after: avoid;
+}
+
+.opcr-doc--no-repeat-header .opcr-indicator_table thead {
+  display: table-row-group;
+}
+
+/* The scan shows a horizontal rule inside the "Division/Individual
+   Accountable" and "Actual Accomplishment" header cells, between the two
+   wrapped lines. That is a scanning/layout artifact, not a sub-header, and
+   is deliberately not reproduced: no inner border is declared on those
+   cells and nothing here introduces one. The text simply wraps.
+
+   Only "Rating" has real sub-headers, and they are separate <th> cells in
+   the second header row — never a rule drawn inside one cell. */
+
+
+/* ==========================================================================
+   6. COLUMN KEYING
+   Alignment and wrapping per column, keyed to the schema's column keys.
+   Width is NOT set here — see the header note.
+   ========================================================================== */
+
+/* Selectors in this section are qualified with `td.` throughout. The column
+   class is also carried by the <col> and the <th>, and these are data-cell
+   rules only — the header's own alignment is set once, in §5. */
+
+/* 6.1 DOST Strategic Plan Alignment, columns 1-3 -------------------------- */
+
+td.opcr-col--pillar_outcome,
+td.opcr-col--strategy,
+td.opcr-col--sub_strategy {
+  text-align: left;
+}
+
+/* Pillar / Outcome prints as two stacked lines (pillar, then outcome).
+   Delivered as a single string with a newline — see §8. */
+
+/* 6.2 PSHSS Program, column 4 --------------------------------------------- */
+
+td.opcr-col--pshss_program {
+  text-align: left;
+}
+
+/* 6.3 Performance Indicators, column 5 ------------------------------------ */
+
+td.opcr-col--performance_indicators {
+  text-align: left;
+  vertical-align: top;
+}
+
+/* 6.4 Targets, column 6 --------------------------------------------------- */
+
+td.opcr-col--targets {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 6.5 Allotted Budget, column 7 ------------------------------------------- */
+/* Empty throughout FY2025 but it is a column of the form, so it keeps its
+   width and its rules. Right-aligned and tabular for when it is populated. */
+
+td.opcr-col--allotted_budget {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 6.6 Division / Individual Accountable, column 8 ------------------------- */
+/* Also empty throughout FY2025. Same treatment. */
+
+td.opcr-col--division_individual_accountable {
+  text-align: left;
+}
+
+/* 6.7 Means of Verification, column 9 ------------------------------------- */
+
+td.opcr-col--means_of_verification {
+  text-align: left;
+}
+
+/* Where an indicator carries several MOV entries, they print as a list. */
+td.opcr-col--means_of_verification ol,
+td.opcr-col--means_of_verification ul {
+  margin: 0;
+  padding-left: 9pt;
+}
+
+/* 6.8 Actual Accomplishment, column 10 ------------------------------------ */
+/* Multi-dimension values arrive as "Q: 90.91%\nE: 45.45%". Left-aligned so
+   the dimension prefixes line up; see §8 for the newline handling. */
+
+td.opcr-col--actual_accomplishment {
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 6.9 Rating leaves, column 11 -------------------------------------------- */
+
+td.opcr-col--rating-quantity,
+td.opcr-col--rating-efficiency,
+td.opcr-col--rating-timeliness,
+td.opcr-col--rating-average {
+  text-align: center;
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* 6.10 Remarks, column 12 ------------------------------------------------- */
+/* Runs to three lines on the FY2025 form. Wraps freely; no truncation. */
+
+td.opcr-col--remarks {
+  text-align: left;
+}
+
+
+/* ==========================================================================
+   7. MERGED CELLS
+   Spans are emitted from the schema's nesting. The only presentational
+   question is vertical placement, and it can be answered without the
+   generator having to mark merged cells: the rowspan attribute is the
+   selector.
+   ========================================================================== */
+
+.opcr-indicator_table td[rowspan]:not([rowspan="1"]) {
+  vertical-align: middle;
+}
+
+/* UNVERIFIED: whether the form centres merged cells vertically or tops
+   them. Centring is the convention on CSC/DOST tables of this shape and is
+   what is set above. To switch, change middle -> top in this one rule. */
+
+
+/* ==========================================================================
+   8. MULTI-LINE CELL CONTENT
+   Cells carry literal newlines ("Q: 90.91%\nE: 45.45%", pillar over
+   outcome). pre-line is the correct mode: it honours \n as a hard break
+   while still collapsing incidental runs of spaces and, unlike pre or
+   pre-wrap, still soft-wraps long lines to the column. The generator
+   therefore does not need to emit <br>.
+   ========================================================================== */
+
+.opcr-indicator_table td {
+  white-space: pre-line;
+}
+
+/* Cells whose content is a single token must not inherit pre-line, or
+   stray whitespace in the data becomes a visible blank line. */
+.opcr-indicator_table td.opcr-col--rating-quantity,
+.opcr-indicator_table td.opcr-col--rating-efficiency,
+.opcr-indicator_table td.opcr-col--rating-timeliness,
+.opcr-indicator_table td.opcr-col--rating-average {
+  white-space: nowrap;
+}
+
+/* Where a cell holds real markup rather than a newline-delimited string
+   (a MOV list, an emphasised run), normal whitespace handling applies. */
+.opcr-indicator_table td > ol,
+.opcr-indicator_table td > ul,
+.opcr-indicator_table td > p {
+  white-space: normal;
+  margin: 0;
+}
+
+
+/* ==========================================================================
+   9. BLANK CELLS
+   Q/E/T are blank wherever the dimension is Not Applicable for that
+   indicator, which is most rows. Blank must print as nothing: no dash, no
+   zero, no placeholder. The rules around the cell still print.
+
+   This is as much a prohibition as a rule — nothing in this file generates
+   cell content, and nothing should be added that does.
+   ========================================================================== */
+
+/* Nothing is declared for the cell itself: no content, no background, no
+   marker. The ::before/::after reset is defensive, in case a later
+   stylesheet or a reset adds one. */
+.opcr-indicator_table td:empty::before,
+.opcr-indicator_table td:empty::after {
+  content: none;
+}
+
+/* A row of entirely empty cells is still held open by the row height set
+   in §4, so no per-cell rule is needed here. */
+
+
+/* ==========================================================================
+   10. PAGE BREAKS
+   ========================================================================== */
+
+/* A single indicator row never splits. */
+.opcr-indicator_table tr {
+  break-inside: avoid;
+}
+
+/* The load-bearing rule. A program or alignment cell with rowspan 7 cannot
+   survive a page break — browsers either drop its rules or leave the merged
+   text stranded, and no CSS property repairs it. Grouping rows into a
+   <tbody> and refusing to break inside it means a span is never cut: the
+   whole group moves to the next sheet instead.
+
+   The grouping must be BY PROGRAM, not by alignment block. HTML does not
+   allow a rowspan to cross a tbody boundary, and the PSHSS Program cell
+   spans the whole program — two alignment blocks in the case of B (2+1)
+   and D (2+1). Group by block and the browser silently clamps that cell to
+   the first block, after which every row of the second block is short one
+   cell and its content renders one column to the left. The failure is
+   quiet: the table still looks well-formed. Group by program and both the
+   program span and the narrower alignment spans sit inside one tbody.
+
+   This holds while a program fits on one sheet. The largest is A at 7
+   indicator rows, comfortable on a landscape sheet. If a future year
+   produces a program taller than one page the engine drops break-inside
+   and the span is cut — see §14(d). */
+.opcr-indicator_table tbody {
+  break-inside: avoid;
+}
+
+/* Sections after the table. */
+.opcr-summary_table,
+.opcr-signoff_table {
+  break-inside: avoid;
+}
+
+.opcr-summary_table {
+  break-before: auto;
+}
+
+/* Keep sign-off and legend together, and keep the legend off a sheet of
+   its own. */
+.opcr-signoff_table {
+  break-after: avoid;
+}
+
+/* Never leave a sheet whose only content is furniture. */
+.opcr-aoo_banner,
+.opcr-commitment_block {
+  break-inside: avoid;
+}
+
+
+/* ==========================================================================
+   11. SUMMARY AND SIGN-OFF TABLES
+   ========================================================================== */
+
+.opcr-summary_table {
+  table-layout: fixed;
+  width: 70%;
+  border-collapse: collapse;
+  margin: 10pt 0 0;
+  font-size: var(--opcr-size-body);
+}
+
+.opcr-summary_table th,
+.opcr-summary_table td {
+  border: var(--opcr-rule);
+  padding: var(--opcr-cell-pad-v) var(--opcr-cell-pad-h);
+  vertical-align: middle;
+}
+
+.opcr-summary_table th {
+  font-size: var(--opcr-size-header);
+  font-weight: 700;
+  text-align: center;
+}
+
+.opcr-summary_table td.opcr-summary__label {
+  text-align: left;
+}
+
+.opcr-summary_table td.opcr-summary__rating {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.opcr-summary__total th,
+.opcr-summary__total td,
+.opcr-summary__final th,
+.opcr-summary__final td {
+  font-weight: 700;
+}
+
+.opcr-signoff_table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10pt 0 0;
+}
+
+.opcr-signoff_table td {
+  width: 33.333%;
+  border: var(--opcr-rule);
+  padding: 4pt 5pt;
+  vertical-align: top;
+  font-size: var(--opcr-size-furniture);
+  line-height: var(--opcr-line-height-furniture);
+}
+
+.opcr-signoff__role {
+  display: block;
+  margin-bottom: 18pt;       /* space for the signature */
+}
+
+.opcr-signoff__body {
+  display: block;
+  border-top: var(--opcr-rule);
+  text-align: center;
+  font-weight: 700;
+}
+
+.opcr-signoff__date {
+  display: block;
+  margin-top: 12pt;
+  border-top: var(--opcr-rule);
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   12. EMPHASIS HOOK
+   Some indicator wording is italicised on the form ("PSHSS-approved",
+   "randomly-selected"). opcr_schema.json currently stores description as a
+   plain string, so nothing emits this yet. The hook is here so that
+   adopting a markup convention in the schema needs no stylesheet change.
+   ========================================================================== */
+
+.opcr-indicator_table em.ind-emph,
+.opcr-indicator_table .ind-emph {
+  font-style: italic;
+}
+
+
+/* ==========================================================================
+   13. SCREEN ENTRY
+   The screen_entry variant is not a preview of the print sheet. It shares
+   the column keys and therefore everything in §6, and overrides the rest.
+   ========================================================================== */
+
+@media screen {
+  .opcr-doc--screen_entry {
+    --opcr-size-body: 11px;
+    --opcr-size-header: 10px;
+    --opcr-row-min-height: 24px;
+    --opcr-cell-pad-v: 3px;
+    --opcr-cell-pad-h: 4px;
+  }
+
+  /* min_table_width_pt from the layout JSON, applied as a min-width so the
+     table scrolls rather than crushing the prose columns. */
+  .opcr-doc--screen_entry .opcr-scroll-wrap {
+    overflow-x: auto;
+  }
+
+  .opcr-doc--screen_entry .opcr-indicator_table {
+    min-width: 1400pt;
+  }
+
+  /* Sticky header instead of a repeated one. */
+  .opcr-doc--screen_entry .opcr-indicator_table thead {
+    display: table-header-group;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #fff;
+  }
+
+  /* Columns 1-5 are fixed in the schema. Show them as context, not fields. */
+  .opcr-doc--screen_entry td.opcr-col--pillar_outcome,
+  .opcr-doc--screen_entry td.opcr-col--strategy,
+  .opcr-doc--screen_entry td.opcr-col--sub_strategy,
+  .opcr-doc--screen_entry td.opcr-col--pshss_program,
+  .opcr-doc--screen_entry td.opcr-col--performance_indicators {
+    background: #f5f5f5;
+    color: #333;
+  }
+
+  /* A blank Q/E/T on screen means Not Applicable, same as in print. Mark it
+     for the person entering data without printing anything: a tint, not a
+     character, so the print rule in §9 is not contradicted. */
+  .opcr-doc--screen_entry td.opcr-col--rating-quantity[data-applicable="false"],
+  .opcr-doc--screen_entry td.opcr-col--rating-efficiency[data-applicable="false"],
+  .opcr-doc--screen_entry td.opcr-col--rating-timeliness[data-applicable="false"] {
+    background: repeating-linear-gradient(
+      45deg, #fafafa, #fafafa 3px, #eee 3px, #eee 6px
+    );
+  }
+
+  .opcr-doc--screen_entry input,
+  .opcr-doc--screen_entry textarea {
+    width: 100%;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+  }
+
+  .opcr-doc--screen_entry textarea {
+    resize: vertical;
+    white-space: pre-line;     /* same newline semantics as print, §8 */
+  }
+}
+
+@media print {
+  .opcr-scroll-wrap {
+    overflow: visible;
+  }
+}
+
+
+/* ==========================================================================
+   14. KNOWN LIMITATIONS
+   Recorded here rather than approximated above.
+
+   a. TYPEFACE AND TYPE SIZE are unverified. The source PDF was not
+      available when this file was written, so the form's actual face,
+      size and leading are unknown. §1 holds a plausible stack and sizes;
+      they are not measurements.
+
+   b. COLUMN PROPORTIONS are not set in this file at all, and are null in
+      opcr_layout.json for the same reason. Nothing here silently
+      substitutes for them.
+
+   c. ROW HEIGHTS cannot be matched to the scan. CSS row height is content
+      driven; pinning each row to a measured height would clip text in a
+      year whose remarks run longer. --opcr-row-min-height sets a floor
+      only.
+
+   d. A MERGED CELL TALLER THAN ONE PAGE will still be cut. §10 prevents
+      this for any block that fits a sheet, which covers FY2025's largest
+      block of 7 rows, but break-inside is a request the engine drops when
+      the content cannot fit. If a future year produces such a block the
+      generator must split it explicitly and repeat the merged cell with a
+      continuation marker; no stylesheet can do it.
+
+   e. SIGNATURES are ink on paper. §3.1 rules the space; the mark itself is
+      an image the generator places or a blank the signer fills.
+
+   f. THE SCAN'S UNDERSIZE is not reproduced, deliberately. See §2.
+
+   g. ABSOLUTE POSITIONING of the three upper-right/centre-left furniture
+      blocks (§3.1, §3.2) assumes a positioned ancestor on the first sheet
+      and is the one part of this file that is layout rather than style. It
+      is here because the blocks overlap the commitment paragraph's band and
+      cannot be expressed as flow.
+      The consequence, seen in testing: an out-of-flow block reserves no
+      height, so the rating-scale box will sit on top of the table header
+      if the header starts higher than the box ends. The wrapper must be
+      given a min-height that clears the tallest of the three blocks. That
+      height varies by year, with the commitment paragraph's length, and by
+      variant: the scale box appears only on the evaluation variants, so
+      the commitment sheet needs a markedly shorter band and will show a
+      gap if given the evaluation's. It is the generator's to compute, not
+      this file's.
+      If the generator would rather own the whole band, replace §3.1 and
+      §3.2 with a grid and drop these rules.
+
+   h. "PAGE N OF 3" WORKS, BUT NOT EVERYWHERE. The @page margin box in
+      §3.5 is supported in Chrome and Edge from 131, and in Safari from
+      18.2. Verified here: Chrome 153 headless renders "Page 1 of 2",
+      "Page 2 of 2" from that rule with no JavaScript. Firefox implements
+      neither margin boxes nor counter(page)/counter(pages), and prints
+      its own unstyleable footer instead.
+      If Firefox must be supported, either add Paged.js, which polyfills
+      paged media in any browser at the cost of a JS dependency, or render
+      server-side through WeasyPrint or Prince, where §3.5 also works
+      unchanged. Choosing a Chromium or server-side render needs no change
+      to this file.
+
+   i. COLUMN MINIMUM WIDTHS follow from §5 refusing to break header text
+      mid-word, and constrain whatever proportions the PDF yields. The
+      measured floors live in opcr_layout.json -> column_min_width_pt so
+      the generator can assert against them; they are not repeated here.
+      The binding one is division_individual_accountable, whose header
+      carries the 19-character unbreakable token "Division/Individual":
+      59.6pt of type at the §1 header style, 65.6pt with padding, i.e.
+      8.52% of a 769.89pt printable width. Any measured proportion below
+      that overflows. These floors move if --opcr-size-header or
+      --opcr-font-body changes; re-measure rather than scaling them.
+   ========================================================================== */

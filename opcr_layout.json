@@ -1,0 +1,373 @@
+{
+  "layout_version": "1.0",
+  "title": "PSHS-CARC OPCR — presentation layout definition",
+  "description": "Presentation companion to opcr_schema.json. Holds only what the generator must reason about before it can lay out a page: page geometry, per-variant column subset and order, column width proportions, and page furniture strings. Everything expressible as a stylesheet rule lives in opcr_print.css instead, keyed to the same column keys used here and in the schema.",
+  "schema_ref": "opcr_schema.json",
+  "stylesheet_ref": "opcr_print.css",
+  "deliberate_omissions": {
+    "note": "These are NOT missing. They are derivable from opcr_schema.json and duplicating them here would create two sources of truth.",
+    "column_labels": "opcr_schema.json → form.columns[].label",
+    "header_grouping": "opcr_schema.json → form.columns[].group (the 'DOST Strategic Plan Alignment' group row) and form.columns[].sub_headers (the 'Rating' group row). A column carrying neither spans both header rows.",
+    "header_row_count": "Always 2, implied by the presence of group/sub_headers.",
+    "phase_membership": "opcr_schema.json → form.columns[].phase",
+    "merged_cell_spans": "Derived from schema nesting at render time: a programs[] entry spans its total indicator count; an alignment_blocks[] entry spans its own indicators[] count. Hardcoding FY2025's A=7, B=2+1, C=2, D=2+1 here would break on any other year's data.",
+    "page_assignment": "Which program lands on which sheet is an outcome of flow, not a fixed property. See document_sections."
+  },
+  "measurement": {
+    "status": "UNMEASURED",
+    "reason": "Rated_OPCR_2025_with_Attachments.pdf was not supplied to the session that produced this file. No column proportion in it was measured from the form.",
+    "effect": "Every 'column_widths_pct' key is null by design, so a renderer fails loudly rather than rendering plausible-looking wrong proportions. The parallel 'column_widths_pct_provisional' tables are content-derived estimates only.",
+    "provisional_basis": "Longest expected cell content per column divided by that column's typical rowspan depth (a cell merged over 7 rows needs roughly a seventh of the line length per row that an unmerged cell needs), with the four rating leaves floored at the width of their own 2-character header.",
+    "do_not": "A renderer must not silently fall back from column_widths_pct to column_widths_pct_provisional. Require an explicit opt-in flag.",
+    "to_resolve": "Supply the PDF. Proportions are then read off the ruling positions of the table's vertical rules on an indicator row, expressed as a fraction of the distance between the outer left and outer right rules — never as absolute points, because the scan is undersized (see page.scan_note)."
+  },
+  "page": {
+    "size": "A4",
+    "orientation": "landscape",
+    "width_pt": 841.89,
+    "height_pt": 595.28,
+    "scan_note": "The source scan measures 835.92 x 588.96 pt, i.e. 99.29% of A4 width and 98.94% of A4 height. This is scanner undersize, not a different page size. A4 landscape is the target. The consequence for measurement is that only ratios taken off the scan are meaningful; absolute point values from it are short by ~0.7-1.1% and must not be copied into this file.",
+    "margin_pt": {
+      "top": 36,
+      "right": 36,
+      "bottom": 36,
+      "left": 36,
+      "status": "UNMEASURED — conventional 0.5in assumed. Does not affect column proportions, which are percentages of table width, but does set the printable width those percentages resolve against."
+    },
+    "printable_width_pt": 769.89
+  },
+  "column_min_width_pt": {
+    "note": "A hard floor on every print variant, independent of measurement. opcr_print.css §5 refuses to break header text mid-word, so a column narrower than its widest unbreakable header token overflows visibly. Whatever proportions come off the PDF must clear these, and the provisional tables below already do.",
+    "basis": "Measured by rendering each token at the stylesheet's own header style (Arial bold, 6.75pt) in Chrome 153 and reading getBoundingClientRect().width, then adding 5pt horizontal padding and 1pt of collapsed border. Re-measure if --opcr-size-header or --opcr-font-body changes.",
+    "binding_token": {
+      "division_individual_accountable": "Division/Individual",
+      "actual_accomplishment": "Accomplishment",
+      "performance_indicators": "Performance",
+      "means_of_verification": "Verification",
+      "allotted_budget": "Allotted",
+      "pillar_outcome": "Outcome"
+    },
+    "min_pt": {
+      "division_individual_accountable": 65.6,
+      "actual_accomplishment": 60.4,
+      "performance_indicators": 47.3,
+      "means_of_verification": 42.4,
+      "allotted_budget": 31.1,
+      "pillar_outcome": 35.3
+    },
+    "min_pct_of_769_89pt": {
+      "division_individual_accountable": 8.52,
+      "actual_accomplishment": 7.85,
+      "performance_indicators": 6.14,
+      "means_of_verification": 5.51,
+      "allotted_budget": 4.04,
+      "pillar_outcome": 4.58
+    },
+    "unconstrained": "strategy, sub_strategy, pshss_program, targets, remarks and the four rating leaves have header tokens short enough that no realistic proportion binds. sub_strategy breaks at its hyphen.",
+    "if_violated": "Widen the column, or drop the header size for that one header. Do not re-enable mid-word breaking: 'Division/Indiv | idual' reads as a typo, not as a layout fault."
+  },
+  "column_leaf_keys": {
+    "note": "The schema's logical column 'rating' prints as four leaf columns. Leaf keys use the schema's own dimension vocabulary (form.dimension_legend, indicator_fields.dimensions) rather than the printed header text, so data and presentation join on the same names. The printed headers Q1/E2/T3/A4 come from form.columns[].sub_headers in schema order.",
+    "rating": [
+      "rating.quantity",
+      "rating.efficiency",
+      "rating.timeliness",
+      "rating.average"
+    ]
+  },
+  "variants": {
+    "print_commitment": {
+      "label": "Commitment — printed",
+      "phase": "commitment",
+      "repeat_table_header": true,
+      "includes_means_of_verification": false,
+      "columns": [
+        "pillar_outcome",
+        "strategy",
+        "sub_strategy",
+        "pshss_program",
+        "performance_indicators",
+        "targets",
+        "allotted_budget",
+        "division_individual_accountable"
+      ],
+      "column_widths_pct": null,
+      "column_widths_pct_provisional": {
+        "pillar_outcome": 10.9,
+        "strategy": 12.6,
+        "sub_strategy": 14.3,
+        "pshss_program": 10.3,
+        "performance_indicators": 24.0,
+        "targets": 9.7,
+        "allotted_budget": 8.0,
+        "division_individual_accountable": 10.2
+      },
+      "document_sections": [
+        "commitment_block",
+        "signatory_campus_director",
+        "signatory_executive_director",
+        "aoo_banner",
+        "indicator_table"
+      ]
+    },
+    "print_evaluation": {
+      "label": "Evaluation — printed",
+      "phase": "evaluation",
+      "repeat_table_header": true,
+      "includes_means_of_verification": false,
+      "columns": [
+        "pillar_outcome",
+        "strategy",
+        "sub_strategy",
+        "pshss_program",
+        "performance_indicators",
+        "targets",
+        "allotted_budget",
+        "division_individual_accountable",
+        "actual_accomplishment",
+        "rating.quantity",
+        "rating.efficiency",
+        "rating.timeliness",
+        "rating.average",
+        "remarks"
+      ],
+      "column_widths_pct": null,
+      "column_widths_pct_provisional": {
+        "pillar_outcome": 7.6,
+        "strategy": 8.7,
+        "sub_strategy": 8.7,
+        "pshss_program": 7.9,
+        "performance_indicators": 16.4,
+        "targets": 6.6,
+        "allotted_budget": 5.5,
+        "division_individual_accountable": 9.4,
+        "actual_accomplishment": 8.7,
+        "rating.quantity": 2.7,
+        "rating.efficiency": 2.7,
+        "rating.timeliness": 2.7,
+        "rating.average": 2.7,
+        "remarks": 9.7
+      },
+      "document_sections": [
+        "commitment_block",
+        "signatory_campus_director",
+        "signatory_executive_director",
+        "rating_scale_box",
+        "aoo_banner",
+        "indicator_table",
+        "summary_table",
+        "signoff_table",
+        "legend_line"
+      ]
+    },
+    "print_commitment_with_mov": {
+      "label": "Commitment — printed, with Means of Verification (not in use)",
+      "phase": "commitment",
+      "repeat_table_header": true,
+      "includes_means_of_verification": true,
+      "columns": [
+        "pillar_outcome",
+        "strategy",
+        "sub_strategy",
+        "pshss_program",
+        "performance_indicators",
+        "targets",
+        "allotted_budget",
+        "division_individual_accountable",
+        "means_of_verification"
+      ],
+      "column_widths_pct": null,
+      "column_widths_pct_provisional": {
+        "pillar_outcome": 9.5,
+        "strategy": 11.0,
+        "sub_strategy": 12.5,
+        "pshss_program": 9.0,
+        "performance_indicators": 21.0,
+        "targets": 8.5,
+        "allotted_budget": 7.0,
+        "division_individual_accountable": 9.0,
+        "means_of_verification": 12.5
+      },
+      "document_sections": [
+        "commitment_block",
+        "signatory_campus_director",
+        "signatory_executive_director",
+        "aoo_banner",
+        "indicator_table"
+      ],
+      "alternate_of": "print_commitment"
+    },
+    "print_evaluation_with_mov": {
+      "label": "Evaluation — printed, with Means of Verification (not in use)",
+      "phase": "evaluation",
+      "repeat_table_header": true,
+      "includes_means_of_verification": true,
+      "columns": [
+        "pillar_outcome",
+        "strategy",
+        "sub_strategy",
+        "pshss_program",
+        "performance_indicators",
+        "targets",
+        "allotted_budget",
+        "division_individual_accountable",
+        "means_of_verification",
+        "actual_accomplishment",
+        "rating.quantity",
+        "rating.efficiency",
+        "rating.timeliness",
+        "rating.average",
+        "remarks"
+      ],
+      "column_widths_pct": null,
+      "column_widths_pct_provisional": {
+        "pillar_outcome": 7.0,
+        "strategy": 8.0,
+        "sub_strategy": 8.0,
+        "pshss_program": 7.2,
+        "performance_indicators": 15.0,
+        "targets": 6.0,
+        "allotted_budget": 5.0,
+        "division_individual_accountable": 8.6,
+        "means_of_verification": 8.4,
+        "actual_accomplishment": 8.0,
+        "rating.quantity": 2.5,
+        "rating.efficiency": 2.5,
+        "rating.timeliness": 2.5,
+        "rating.average": 2.5,
+        "remarks": 8.8
+      },
+      "document_sections": [
+        "commitment_block",
+        "signatory_campus_director",
+        "signatory_executive_director",
+        "rating_scale_box",
+        "aoo_banner",
+        "indicator_table",
+        "summary_table",
+        "signoff_table",
+        "legend_line"
+      ],
+      "alternate_of": "print_evaluation"
+    },
+    "screen_entry": {
+      "label": "Data entry — screen",
+      "phase": "both",
+      "repeat_table_header": false,
+      "sticky_table_header": true,
+      "includes_means_of_verification": true,
+      "min_table_width_pt": 1400,
+      "min_table_width_note": "Percentages resolve against max(viewport, min_table_width_pt), so the table scrolls horizontally instead of crushing the prose columns. This is the one place the proportions are allowed to differ from print: entry fields need a usable minimum, print needs to fit a fixed page.",
+      "columns": [
+        "pillar_outcome",
+        "strategy",
+        "sub_strategy",
+        "pshss_program",
+        "performance_indicators",
+        "targets",
+        "allotted_budget",
+        "division_individual_accountable",
+        "means_of_verification",
+        "actual_accomplishment",
+        "rating.quantity",
+        "rating.efficiency",
+        "rating.timeliness",
+        "rating.average",
+        "remarks"
+      ],
+      "column_widths_pct": {
+        "pillar_outcome": 6.0,
+        "strategy": 7.0,
+        "sub_strategy": 8.0,
+        "pshss_program": 6.0,
+        "performance_indicators": 14.0,
+        "targets": 8.0,
+        "allotted_budget": 5.0,
+        "division_individual_accountable": 7.0,
+        "means_of_verification": 8.0,
+        "actual_accomplishment": 11.0,
+        "rating.quantity": 3.5,
+        "rating.efficiency": 3.5,
+        "rating.timeliness": 3.5,
+        "rating.average": 3.5,
+        "remarks": 6.0
+      },
+      "column_widths_note": "Not null, and not a measurement. Nothing on screen needs to match the scan, so these are chosen for entry ergonomics: the five stable columns 1-5 are read-only context and give up width; targets, actual_accomplishment and the rating leaves are the fields actually typed into and gain it.",
+      "readonly_columns": [
+        "pillar_outcome",
+        "strategy",
+        "sub_strategy",
+        "pshss_program",
+        "performance_indicators",
+        "means_of_verification"
+      ],
+      "readonly_note": "Columns 1-5 are fixed in opcr_schema.json and means_of_verification is keyed by indicator in mov_schema.json. None of the five are per-year data, so entry must not offer them as editable. MOV stays visible on screen even though it no longer prints: it tells whoever is entering an accomplishment what evidence the indicator expects.",
+      "document_sections": [
+        "indicator_table"
+      ]
+    }
+  },
+  "variant_notes": {
+    "mov_decision": "SETTLED 2026-11-10: Means of Verification does not print. print_commitment and print_evaluation carry columns 1-8 and 1-12-less-MOV respectively. The MOV documents in mov_schema.json are evidence filed as attachments, not a column of the form.",
+    "mov_reversal": "The *_with_mov variants are retained unused against the decision being revisited. Flipping back is a change of variant name at the call site and nothing else: opcr_print.css is keyed to column keys, not variants, and needs no edit either way. Once measured widths replace the provisional tables, decide whether the unused pair is still worth keeping in step.",
+    "mov_open_question": "Whether the FY2025 sheet rules an EMPTY MOV column is unresolved and needs the PDF. The brief states MOV is absent, but its own verified per-row cell counts (15/14/11) only arise from 15 leaf columns, which requires MOV to be present. If the scan shows it ruled but unpopulated, MOV belongs in the printed variants as a blank-but-sized column, exactly like allotted_budget and division_individual_accountable — not dropped.",
+    "blank_but_sized": "allotted_budget and division_individual_accountable are empty throughout FY2025 but hold their width in every print variant. They are columns of the form, not of the data."
+  },
+  "furniture": {
+    "footer_pattern": "Page {page} of {pages}",
+    "footer_note": "{pages} is the flowed total, not a literal 3. FY2025 happens to produce 3.",
+    "aoo_banner": "AGENCY ORGANIZATIONAL OUTCOME:",
+    "aoo_banner_note": "The outcome text itself follows from opcr_schema.json → form.agency_organizational_outcome.",
+    "legend_line": "Legend:  1 - Quantity    2 - Efficiency    3 - Timeliness    4 - Average",
+    "legend_line_note": "Reads Quantity, not Quality. See form.dimension_legend_note in opcr_schema.json — that wording is authoritative for this form.",
+    "rating_scale_box": {
+      "order": "descending",
+      "rows": [
+        "5 - Outstanding",
+        "4 - Very Satisfactory",
+        "3 - Satisfactory",
+        "2 - Unsatisfactory",
+        "1 - Poor"
+      ],
+      "rows_note": "Strings assembled from opcr_schema.json → form.rating_scale; listed here only to fix the print order and the ' - ' separator."
+    },
+    "summary_table": {
+      "row_label_pattern": "{program_code}. {program_title}",
+      "rating_columns_note": "Q/E/T/A, same four leaf keys and same sub_headers as the indicator table.",
+      "total_row_label": "Total Rating",
+      "final_row_label": "Final average rating"
+    },
+    "signoff_table": {
+      "cells": [
+        {
+          "role_label": "Assessed by:",
+          "body_label": "Planning Committee",
+          "date_label": "Date"
+        },
+        {
+          "role_label": "Recommending Approval:",
+          "body_label": "Performance Management Team",
+          "date_label": "Date"
+        },
+        {
+          "role_label": "Final Rating by:",
+          "body_label": "Executive Director",
+          "date_label": "Date"
+        }
+      ],
+      "layout": "three cells in one row, equal width"
+    }
+  },
+  "document_sections_catalogue": {
+    "note": "Section identifiers referenced by each variant's document_sections, in print order. Page breaks fall where the flow puts them; see opcr_print.css for the break rules. No section is pinned to a sheet number.",
+    "commitment_block": "Commitment statement paragraph, top of first sheet only.",
+    "signatory_campus_director": "Campus Director signature block, upper right of first sheet.",
+    "signatory_executive_director": "Executive Director signature block, centre-left of first sheet.",
+    "rating_scale_box": "Boxed 5-to-1 scale, upper right of first sheet, below the Campus Director block. Evaluation variants only — there is nothing to scale against at commitment time.",
+    "aoo_banner": "Single banner line immediately above the table.",
+    "indicator_table": "The 2-header-row, N-indicator-row table. The only section that flows across sheets.",
+    "summary_table": "Per-program Q/E/T/A ratings, then Total Rating and Final average rating.",
+    "signoff_table": "Three-cell assessed/recommending/final row.",
+    "legend_line": "Dimension legend, last line of the document."
+  }
+}

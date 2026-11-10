@@ -1,0 +1,77 @@
+# SPDX-FileCopyrightText: 2026 Ricarido M. Saturay Jr.
+# SPDX-License-Identifier: CC0-1.0
+#
+# =============================================================================
+# REUSE.toml — per-path licensing declarations
+# =============================================================================
+#
+# Files that can carry an inline SPDX header do so and are NOT listed here:
+#
+#   opcr_tool.html      GPL-3.0-or-later   (HTML comment header)
+#   opcr_print.css      GPL-3.0-or-later   (CSS comment header)
+#
+# Everything below is declared here instead, because JSON has no comment
+# syntax and a "_license" member would pollute a schema the tool parses.
+#
+# Verify coverage:        reuse lint
+# Fetch licence texts:    reuse download --all
+#
+# Edit the placeholder marked TODO before the first public push.
+# =============================================================================
+
+version = 1
+
+SPDX-PackageName = "psy-opcr"
+SPDX-PackageSupplier = "Ricarido M. Saturay Jr."        # TODO: add a contact address if you want one public
+SPDX-PackageDownloadLocation = "https://github.com/ricsatjr/psy-opcr"
+
+
+# -----------------------------------------------------------------------------
+# Interface files — CC0, so the format spreads without conditions attaching
+# to any data that conforms to it.
+# -----------------------------------------------------------------------------
+
+[[annotations]]
+path = [
+    "opcr_schema.json",
+    "mov_schema.json",
+    "opcr_layout.json",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Ricarido M. Saturay Jr."
+SPDX-License-Identifier = "CC0-1.0"
+
+
+# -----------------------------------------------------------------------------
+# Transcribed government issuance — no copyright subsists (RA 8293 Sec. 176).
+# Not licensed by this repository; attributed to its issuing agency.
+# -----------------------------------------------------------------------------
+
+[[annotations]]
+path = "dost_strategic_plan_2023_2028.json"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Department of Science and Technology, Republic of the Philippines"
+SPDX-License-Identifier = "LicenseRef-PH-Gov-Work"
+
+
+# -----------------------------------------------------------------------------
+# Prose — documentation and design notes.
+# -----------------------------------------------------------------------------
+
+[[annotations]]
+path = "**/*.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Ricarido M. Saturay Jr."
+SPDX-License-Identifier = "CC-BY-4.0"
+
+
+# -----------------------------------------------------------------------------
+# Example data shipped with the tool. Synthetic or empty only — no real
+# performance data, ratings, signatories or dates belong in this repository.
+# -----------------------------------------------------------------------------
+
+[[annotations]]
+path = "examples/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Ricarido M. Saturay Jr."
+SPDX-License-Identifier = "CC0-1.0"
